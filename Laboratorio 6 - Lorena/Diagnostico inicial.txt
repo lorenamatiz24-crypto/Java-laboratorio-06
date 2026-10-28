@@ -1,0 +1,10 @@
+¿Qué diferencia hay entre JDK y JVM?
+Rta: JVM (Java Virtual Machine) sirve para ejecutar el código en cualquier computador, JDK (Java Development Kit) es un ejecutador para compilar código.
+¿Qué produce el compilador javac?
+Rta: Compila los archivos .java para poder ejecutar de mejor manera los .class.
+¿Qué ocurre cuando un método llama a otro método?
+Rta: cuando un método llama a otro método se ejecuta de manera correcta ya que estarían en la misma clase.
+Si dos variables apuntan al mismo objeto y una modifica su estado, ¿qué observará la otra?
+Rta: La otra mirara el cambio que genero y tratara de modificar ese estado.
+¿Java pasa los objetos «por referencia»? Escribe tu explicación inicial.
+Rta: 

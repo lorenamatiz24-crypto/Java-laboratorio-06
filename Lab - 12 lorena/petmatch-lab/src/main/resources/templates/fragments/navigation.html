@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <nav th:fragment="navigation" class="site-navigation"
+         aria-label="Navegación principal">
+        <a class="brand" th:href="@{/}">PetMatch Mini</a>
+
+        <div class="navigation-links">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/about}">Acerca de</a>
+            <a th:if="${currentEmail != null}"
+               th:href="@{/pets}">Mascotas</a>
+            <a th:if="${isAdmin}"
+               th:href="@{/admin}">Administración</a>
+            <a th:if="${currentEmail == null}"
+               th:href="@{/login}">Iniciar sesión</a>
+            <a th:if="${currentEmail == null}"
+               th:href="@{/register}">Registrarse</a>
+
+            <span th:if="${currentEmail != null}"
+                  th:text="${currentEmail}">user@example.com</span>
+
+            <form th:if="${currentEmail != null}"
+                  th:action="@{/logout}" method="post">
+                <button type="submit">Cerrar sesión</button>
+            </form>
+        </div>
+    </nav>
+</body>
+</html>

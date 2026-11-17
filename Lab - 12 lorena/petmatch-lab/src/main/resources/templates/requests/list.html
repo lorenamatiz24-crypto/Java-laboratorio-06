@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Solicitudes | PetMatch Mini')}"></head>
+<body>
+    <nav th:replace="~{fragments/navigation :: navigation}"></nav>
+
+    <main class="page-container">
+        <section class="content-panel">
+            <h1>Solicitudes de apoyo</h1>
+            <p>
+                Mascota:
+                <strong th:text="${pet.name}">Luna</strong>
+            </p>
+
+            <p class="success-message" role="status"
+               th:if="${successMessage}"
+               th:text="${successMessage}">Operación correcta.</p>
+
+            <p>
+                <a class="button-link"
+                   th:href="@{/pets/{petId}/requests/new(petId=${pet.id})}">
+                    Crear solicitud
+                </a>
+                <a class="secondary-link"
+                   th:href="@{/pets/{petId}(petId=${pet.id})}">
+                    Volver a la mascota
+                </a>
+            </p>
+
+            <section th:if="${requests.isEmpty()}">
+                <h2>Sin solicitudes</h2>
+                <p>Esta mascota todavía no tiene solicitudes registradas.</p>
+            </section>
+
+            <section th:unless="${requests.isEmpty()}"
+                     aria-label="Solicitudes de apoyo">
+                <article class="request-card"
+                         th:each="request : ${requests}">
+                    <h2>
+                        Solicitud
+                        <span th:text="${request.id}">0</span>
+                    </h2>
+                    <p>
+                        <strong>Tipo:</strong>
+                        <span th:text="${request.type.label}">Paseo</span>
+                    </p>
+                    <p>
+                        <strong>Descripción:</strong>
+                        <span th:text="${request.description}">Descripción</span>
+                    </p>
+                    <p>
+                        <strong>Estado:</strong>
+                        <span th:text="${request.status.label}">Abierta</span>
+                    </p>
+
+                    <div class="form-actions" th:if="${isAdmin and request.open}">
+                        <a class="secondary-link"
+                           th:href="@{/pets/{petId}/requests/{requestId}/replace(petId=${pet.id},requestId=${request.id})}">
+                            Reemplazar
+                        </a>
+                        <form method="post"
+                              th:action="@{/pets/{petId}/requests/{requestId}/complete(petId=${pet.id},requestId=${request.id})}">
+                            <button type="submit" class="button-link">
+                                Completar
+                            </button>
+                        </form>
+                        <form method="post"
+                              th:action="@{/pets/{petId}/requests/{requestId}/cancel(petId=${pet.id},requestId=${request.id})}">
+                            <button type="submit" class="danger-button">
+                                Cancelar
+                            </button>
+                        </form>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </main>
+</body>
+</html>

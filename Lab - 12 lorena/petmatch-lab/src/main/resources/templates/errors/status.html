@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('No se pudo completar | PetMatch Mini')}"></head>
+<body>
+    <nav th:replace="~{fragments/navigation :: navigation}"></nav>
+
+    <main class="page-container">
+        <section class="content-panel" role="alert">
+            <h1 th:text="${errorTitle}">Operación no disponible</h1>
+            <p th:text="${errorMessage}">
+                La operación solicitada no pudo completarse.
+            </p>
+            <a class="button-link" th:href="@{/pets}">
+                Volver al catálogo
+            </a>
+        </section>
+    </main>
+</body>
+</html>

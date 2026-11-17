@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Registro | PetMatch Mini')}"></head>
+<body>
+    <nav th:replace="~{fragments/navigation :: navigation}"></nav>
+
+    <main class="page-container">
+        <section class="content-panel">
+            <h1>Crear cuenta</h1>
+            <p>El registro crea una cuenta con permisos de usuario.</p>
+
+            <form th:action="@{/register}"
+                  th:object="${registrationForm}"
+                  method="post">
+                <div>
+                    <label for="displayName">Nombre</label>
+                    <input id="displayName" type="text"
+                           th:field="*{displayName}"
+                           maxlength="100" autocomplete="name" required>
+                    <p th:if="${#fields.hasErrors('displayName')}"
+                       th:errors="*{displayName}" role="alert">
+                        Error en el nombre
+                    </p>
+                </div>
+
+                <div>
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" type="email"
+                           th:field="*{email}"
+                           maxlength="190" autocomplete="email" required>
+                    <p th:if="${#fields.hasErrors('email')}"
+                       th:errors="*{email}" role="alert">
+                        Error en el correo
+                    </p>
+                </div>
+
+                <div>
+                    <label for="password">Contraseña</label>
+                    <input id="password" name="password" type="password"
+                           minlength="12" maxlength="64"
+                           autocomplete="new-password" required>
+                    <p th:if="${#fields.hasErrors('password')}"
+                       th:errors="*{password}" role="alert">
+                        Error en la contraseña
+                    </p>
+                </div>
+
+                <div>
+                    <label for="confirmPassword">Confirmar contraseña</label>
+                    <input id="confirmPassword" name="confirmPassword"
+                           type="password" autocomplete="new-password" required>
+                    <p th:if="${#fields.hasErrors('confirmPassword')}"
+                       th:errors="*{confirmPassword}" role="alert">
+                        Error en la confirmación
+                    </p>
+                </div>
+
+                <button type="submit">Registrar cuenta</button>
+            </form>
+
+            <p>
+                <a th:href="@{/login}">Ya tengo una cuenta</a>
+            </p>
+        </section>
+    </main>
+</body>
+</html>

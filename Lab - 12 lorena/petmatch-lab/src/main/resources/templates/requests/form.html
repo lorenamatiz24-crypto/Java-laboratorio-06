@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Solicitud | PetMatch Mini')}"></head>
+<body>
+    <nav th:replace="~{fragments/navigation :: navigation}"></nav>
+
+    <main class="page-container">
+        <section class="content-panel">
+            <h1 th:text="${formTitle}">Nueva solicitud de apoyo</h1>
+            <p>
+                Mascota:
+                <strong th:text="${pet.name}">Luna</strong>
+            </p>
+
+            <form method="post"
+                  th:action="${formAction}"
+                  th:object="${supportRequestForm}">
+
+                <div class="form-summary"
+                     role="alert"
+                     th:if="${#fields.hasGlobalErrors()}">
+                    <p th:each="error : ${#fields.globalErrors()}"
+                       th:text="${error}">Error de la solicitud.</p>
+                </div>
+
+                <div class="form-field">
+                    <label for="type">Tipo de apoyo</label>
+                    <select id="type" th:field="*{type}"
+                            th:errorclass="field-error"
+                            aria-describedby="type-error">
+                        <option value="">Selecciona una opción</option>
+                        <option th:each="supportType : ${supportTypes}"
+                                th:value="${supportType.name()}"
+                                th:text="${supportType.label}">
+                            Tipo
+                        </option>
+                    </select>
+                    <p id="type-error" class="field-error-message"
+                       th:if="${#fields.hasErrors('type')}"
+                       th:errors="*{type}">Error de tipo.</p>
+                </div>
+
+                <div class="form-field">
+                    <label for="description">Descripción</label>
+                    <textarea id="description"
+                              rows="5" maxlength="500"
+                              th:field="*{description}"
+                              th:errorclass="field-error"
+                              aria-describedby="description-error"></textarea>
+                    <p id="description-error" class="field-error-message"
+                       th:if="${#fields.hasErrors('description')}"
+                       th:errors="*{description}">
+                        Error de descripción.
+                    </p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="button-link"
+                            th:text="${submitLabel}">
+                        Registrar solicitud
+                    </button>
+                    <a class="secondary-link"
+                       th:href="@{/pets/{petId}/requests(petId=${pet.id})}">
+                        Volver a solicitudes
+                    </a>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
